@@ -8,3 +8,9 @@ This project showcases an AI-based Plant Detection, Health Analysis, and Zone-Aw
 Users can upload a plant image and receive simulated AI insights such as plant identification, health status, common growth zones, and improvement suggestions.
 
 The MVP is designed for demonstration, learning, and portfolio purposes, with mock data simulating responses from the Gemini API.
+
+## ⚠️ Current Limitation (Important)
+
+This MVP does not perform real plant detection or analysis.
+
+All outputs—including plant identification, health status, zone information, recommendations, and learning resources—are generated from static mock JSON data that simulates expected AI responses.
