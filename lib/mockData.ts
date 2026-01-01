@@ -31,12 +31,12 @@ export const MOCK_RESULT: PlantResult = {
     videos: [
         {
             title: "Tomato Leaf Blight Treatment",
-            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder URL
+            url: "https://www.youtube.com/watch?v=0jSaIA--Y0U", // Placeholder URL
             duration: "6:12",
         },
         {
             title: "How to Grow Healthy Tomato Plants",
-            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder URL
+            url: "https://www.youtube.com/watch?v=0jSaIA--Y0U", // Placeholder URL
             duration: "8:45",
         },
     ],
