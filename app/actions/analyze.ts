@@ -13,9 +13,12 @@ export async function analyzePlantImage(imageBase64: string, language: string = 
   const timestamp = new Date().toISOString();
   const scanId = crypto.randomUUID();
 
-  // 1. Simulation Mode (if Key is missing)
-  if (!process.env.GEMINI_API_KEY) {
-    console.warn("SERVER: Gemini API Key is missing. SIMULATING RESPONSE.");
+  // 1. Simulation Mode (if Key is missing or invalid)
+  const apiKey = process.env.GEMINI_API_KEY;
+
+  // Basic validation: Check existence, length (Gemini keys are long), and specific placeholder strings
+  if (!apiKey || apiKey === "undefined" || apiKey.length < 30 || apiKey.includes("YOUR_API_KEY")) {
+    console.warn("SERVER: Gemini API Key is missing or invalid. SIMULATING RESPONSE.");
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     let mock: PlantAnalysisResult;
@@ -43,7 +46,11 @@ export async function analyzePlantImage(imageBase64: string, language: string = 
         },
         recommendations: {
           immediateActions: [],
-          careGuide: ["இலைகளை அடிக்கடி தெளிக்கவும்", "நேரடி நண்பகல் வெயிலில் இருந்து பாதுகாக்கவும்"]
+          careGuide: [
+            "இலைகளை வாரத்திற்கு ஒரு முறை துடைக்கவும்",
+            "நேரடி சூரிய ஒளியைத் தவிர்க்கவும்",
+            "மண்ணின் ஈரப்பதத்தை அடிக்கடி சரிபார்க்கவும்"
+          ]
         },
         learningResources: {
           youtubeSearchQueries: ["monstera deliciosa care tamil", "monstera valarppu murai"]
@@ -73,7 +80,11 @@ export async function analyzePlantImage(imageBase64: string, language: string = 
         },
         recommendations: {
           immediateActions: [],
-          careGuide: ["नियमित रूप से पत्तियों पर छिड़काव करें", "सीधी दोपहर की धूप से बचाएं"]
+          careGuide: [
+            "हफ्ते में एक बार पत्ते साफ करें",
+            "सीधी धूप से पौधे को बचाएं",
+            "मिट्टी की नमी की नियमित जांच करें"
+          ]
         },
         learningResources: {
           youtubeSearchQueries: ["monstera deliciosa care hindi", "monstera plant dekhbhal"]
@@ -104,7 +115,11 @@ export async function analyzePlantImage(imageBase64: string, language: string = 
         },
         recommendations: {
           immediateActions: [],
-          careGuide: ["Mist leaves regularly", "Keep out of direct noonday sun"]
+          careGuide: [
+            "Wipe leaves monthly to remove dust",
+            "Keep away from direct noon sunlight",
+            "Check soil moisture before watering"
+          ]
         },
         learningResources: {
           youtubeSearchQueries: ["monstera deliciosa care guide", "monstera watering tips"]
@@ -163,7 +178,7 @@ export async function analyzePlantImage(imageBase64: string, language: string = 
 
         Infer possible issues carefully (do not guess aggressively).
 
-        Suggest simple care actions.
+        Suggest exactly 3 preventive care steps. Keep them very short and direct.
 
         Mention suitable climate zones at a high level.
 
@@ -203,7 +218,7 @@ export async function analyzePlantImage(imageBase64: string, language: string = 
               "string"
             ],
             "careGuide": [
-              "string"
+              "string (Short preventive step, max 10 words)"
             ]
           },
           "zoneInsights": {

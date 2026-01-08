@@ -12,6 +12,7 @@ import { useLanguage } from "@/components/providers/LanguageProvider";
 export default function DetectPage() {
     const router = useRouter();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const galleryInputRef = useRef<HTMLInputElement>(null);
 
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [preview, setPreview] = useState<string | null>(null);
@@ -128,7 +129,7 @@ export default function DetectPage() {
                 <div className="flex items-center justify-around max-w-sm mx-auto">
                     {/* Gallery Button */}
                     <button
-                        onClick={() => fileInputRef.current?.click()}
+                        onClick={() => galleryInputRef.current?.click()}
                         className="p-4 rounded-full bg-white/10 active:bg-white/20 transition-colors"
                     >
                         <ImageIcon className="w-6 h-6 text-white" />
@@ -147,11 +148,21 @@ export default function DetectPage() {
                 </div>
             </div>
 
+            {/* Camera Input (Forces Camera) */}
             <input
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
                 capture="environment"
+                className="hidden"
+                onChange={handleCapture}
+            />
+
+            {/* Gallery Input (Allows Selection) */}
+            <input
+                ref={galleryInputRef}
+                type="file"
+                accept="image/*"
                 className="hidden"
                 onChange={handleCapture}
             />
