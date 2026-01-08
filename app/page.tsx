@@ -1,49 +1,65 @@
+"use client";
+
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { Camera, Wifi, Leaf, ImageUp, Settings } from "lucide-react";
+import LanguageSelector from "@/components/ui/LanguageSelector";
+import RecentScans from "@/components/features/RecentScans";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function Home() {
-  return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-[var(--color-background)]">
-      <div className="max-w-md w-full space-y-8 animate-in fade-in zoom-in duration-700">
+  const { t } = useLanguage();
 
-        {/* Brand / Logo Area */}
-        <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-[var(--color-primary)] rounded-2xl flex items-center justify-center shadow-lg rotate-3 hover:rotate-6 transition-transform">
-            <span className="text-3xl">🌱</span>
+  return (
+    <main className="min-h-screen bg-stone-50 pb-32">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-stone-900/80 backdrop-blur-md px-6 py-4 flex items-center justify-between shadow-lg ring-1 ring-white/10">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
+            <Leaf className="w-5 h-5 text-white" />
+          </div>
+          <span className="text-lg font-bold text-white tracking-tight">{t.heroTitle}</span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Link href="/settings" className="p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white active:scale-95 transition-all hover:bg-white/20">
+            <Settings className="w-5 h-5" />
+          </Link>
+          <LanguageSelector />
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <div className="px-6 pt-8 pb-4">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-800 p-6 text-white shadow-xl ring-1 ring-black/5">
+          {/* Background Pattern */}
+          <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-yellow-400/20 rounded-full blur-2xl"></div>
+
+          <div className="relative z-10">
+            <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-100 text-xs font-medium mb-3 backdrop-blur-sm border border-emerald-400/30">
+              {t.systemActive}
+            </span>
+            <h1 className="text-3xl font-bold leading-tight mb-2">
+              {t.heroSubtitle}
+            </h1>
+            <p className="text-emerald-100 text-sm opacity-90 mb-6 max-w-[200px]">
+              {t.disclaimer.split('.')[0]}.
+            </p>
+
+            <div className="flex gap-3">
+              <Link href="/detect" className="flex-1 bg-white text-emerald-800 py-3.5 px-4 rounded-xl font-bold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2">
+                <Camera className="w-4 h-4" />
+                {t.scanPlant}
+              </Link>
+              <button className="bg-emerald-700/50 text-white p-3.5 rounded-xl backdrop-blur-md active:bg-emerald-700/70 transition-colors">
+                <ImageUp className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Hero Text */}
-        <div className="space-y-4">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[var(--color-primary-dark)]">
-            Understand Any Plant. <span className="text-[var(--color-accent)]">Instantly.</span>
-          </h1>
-          <p className="text-lg text-[var(--color-text-muted)] leading-relaxed">
-            Identify plants, analyze health, and get organic improvement tips using AI.
-          </p>
-        </div>
-
-        {/* Actions */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:justify-center pt-4">
-          <Link href="/detect">
-            <Button className="w-full sm:w-auto text-lg px-8 py-4 shadow-xl shadow-[var(--color-primary)]/20">
-              Upload Plant Image
-            </Button>
-          </Link>
-
-          <Link href="/result?sample=true">
-            <Button variant="secondary" className="w-full sm:w-auto text-lg px-8 py-4">
-              Try with Sample
-            </Button>
-          </Link>
-        </div>
-
-        {/* Trust/Footer Note */}
-        <div className="pt-12">
-          <p className="text-sm text-[var(--color-text-muted)] opacity-60">
-            100% Free • No Sign-up Required
-          </p>
-        </div>
+        {/* Recent Scans Widget */}
+        <RecentScans />
       </div>
     </main>
   );

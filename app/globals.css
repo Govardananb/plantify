@@ -1,17 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #4A6741;
-  --color-primary-dark: #3A5233;
-  --color-secondary: #D4CDBC;
-  --color-accent: #C78D74;
-  --color-background: #F9F7F2;
-  --color-text-main: #2D302D;
-  --color-text-muted: #6B706B;
+  --color-primary: #00DC82;
+  /* Vibrant Green from Scan button */
+  --color-primary-dark: #00B068;
+  --color-secondary: #ffffff;
+  --color-accent: #2D302D;
+  /* Dark text for headings */
+  --color-background: #F8F9FA;
+  /* Light grey/white background */
+  --color-surface: #ffffff;
+  /* pure white for cards */
+  --color-text-main: #1A1C1A;
+  --color-text-muted: #8E918E;
 
-  --color-success: #6B9080;
-  --color-warning: #E9C46A;
-  --color-danger: #E76F51;
+  --color-success: #00DC82;
+  --color-warning: #FFB02E;
+  --color-danger: #FF4D4D;
+  --color-system-active: #E8F5E9;
+  /* Light green for system active badge */
 }
 
 body {
@@ -22,4 +29,20 @@ body {
 
 .section-title {
   @apply text-xl font-bold text-[var(--color-primary-dark)];
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.7s ease-out forwards;
 }

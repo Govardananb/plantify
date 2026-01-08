@@ -1,31 +1,38 @@
 import React from "react";
-import { Card } from "../ui/Card";
+import { Play } from "lucide-react";
 
 interface VideoCardProps {
     title: string;
+    author: string;
+    views: string;
     duration: string;
-    url: string;
+    thumbnail: string;
+    url?: string;
 }
 
-export const VideoCard: React.FC<VideoCardProps> = ({ title, duration, url }) => {
+export const VideoCard: React.FC<VideoCardProps> = ({ title, author, views, duration, thumbnail, url }) => {
     return (
-        <a href={url} target="_blank" rel="noopener noreferrer" className="block group">
-            <Card className="p-0 overflow-hidden hover:shadow-md transition-all group-hover:-translate-y-1">
-                <div className="h-32 bg-stone-300 relative flex items-center justify-center">
-                    <span className="w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-[var(--color-primary)] shadow-sm">
-                        ▶
-                    </span>
-                    <span className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded">
-                        {duration}
-                    </span>
+        <a
+            href={url || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col gap-2 group cursor-pointer"
+        >
+            <div className="relative aspect-video rounded-xl overflow-hidden bg-stone-100 shadow-sm group-hover:shadow-md transition-all">
+                <img src={thumbnail} alt={title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity transform scale-75 group-hover:scale-100">
+                        <Play className="w-4 h-4 text-[var(--color-primary)] ml-0.5" fill="currentColor" />
+                    </div>
                 </div>
-                <div className="p-3">
-                    <h4 className="font-semibold text-sm line-clamp-2 leading-tight group-hover:text-[var(--color-primary)] transition-colors">
-                        {title}
-                    </h4>
-                    <p className="text-xs text-[var(--color-text-muted)] mt-1">Watch on YouTube</p>
+                <div className="absolute bottom-2 right-2 bg-black/70 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                    {duration}
                 </div>
-            </Card>
+            </div>
+            <div>
+                <h4 className="font-bold text-[var(--color-text-main)] text-sm leading-tight line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors">{title}</h4>
+                <p className="text-xs text-[var(--color-text-muted)] mt-1">{author} • {views}</p>
+            </div>
         </a>
     );
 };
