@@ -202,7 +202,7 @@ export async function analyzePlantImage(imageBase64: string, language: string = 
             "commonName": "string or Unknown",
             "scientificName": "string or Unknown",
             "plantType": "crop | tree | shrub | herb | climber | unknown",
-            "shortDescription": "One simple sentence about the plant"
+            "shortDescription": "Short Overview. 2-3 sentences describing the plant's origin, key features, and uses."
           },
           "healthAnalysis": {
             "status": "Healthy | Moderate | Critical",

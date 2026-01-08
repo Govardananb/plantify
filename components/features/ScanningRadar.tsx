@@ -10,11 +10,7 @@ export const ScanningRadar = () => {
 
             {/* Inner Circle Image Container */}
             <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-2xl shadow-[var(--color-success)]/20 z-10">
-                <img
-                    src="https://images.unsplash.com/photo-1599598425947-320d32bb5826?q=80&w=400&auto=format&fit=crop"
-                    alt="Scanning"
-                    className="w-full h-full object-cover"
-                />
+                <div className="w-full h-full bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 backdrop-blur-sm" />
 
                 {/* Scanning Overlay (Green horizontal line moving down) */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--color-primary)]/40 to-transparent h-1/2 w-full animate-[scan_2s_linear_infinite]" />

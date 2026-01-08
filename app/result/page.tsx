@@ -65,6 +65,14 @@ export default function ResultPage() {
                     matchLimit={data.confidenceNote === 'High' ? 95 : data.confidenceNote === 'Medium' ? 75 : 45}
                 />
 
+                {/* 2.5 Overview */}
+                <div className="bg-white rounded-3xl p-6 shadow-sm border border-stone-100">
+                    <h3 className="font-bold text-gray-900 mb-2">{t.result.overview}</h3>
+                    <p className="text-stone-600 leading-relaxed text-sm">
+                        {data.plant.shortDescription}
+                    </p>
+                </div>
+
                 {/* 3. Primary Status Block */}
                 <div className={`rounded-3xl p-6 ${isHealthy ? 'bg-emerald-600 text-white' : 'bg-white border border-red-100 shadow-sm'
                     }`}>

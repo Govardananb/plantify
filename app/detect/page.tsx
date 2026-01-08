@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { X, Upload, Image as ImageIcon } from "lucide-react";
+import { X, Upload, Image as ImageIcon, Camera } from "lucide-react";
 import { ScanningRadar } from "@/components/features/ScanningRadar";
 import { ProcessingSteps } from "@/components/features/ProcessingSteps";
 import { saveResult, saveImage } from "@/lib/storage";
@@ -80,13 +80,7 @@ export default function DetectPage() {
     if (isAnalyzing) {
         return (
             <main className="min-h-screen bg-white flex flex-col items-center justify-center p-6 relative overflow-hidden">
-                {/* Background Image Blur */}
-                {preview && (
-                    <div
-                        className="absolute inset-0 bg-cover bg-center opacity-10 blur-xl scale-110"
-                        style={{ backgroundImage: `url(${preview})` }}
-                    />
-                )}
+                {/* Background removed as per request */}
 
                 <ScanningRadar />
 
@@ -110,41 +104,37 @@ export default function DetectPage() {
                 <div className="w-10"></div>{/* Spacer */}
             </div>
 
-            {/* Viewfinder Overlay */}
-            <div className="flex-1 relative flex flex-col items-center justify-center p-6">
-                <div className="w-full max-w-xs aspect-[3/4] border-2 border-white/50 rounded-3xl relative">
-                    <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-emerald-400 -mt-0.5 -ml-0.5 rounded-tl-xl"></div>
-                    <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-emerald-400 -mt-0.5 -mr-0.5 rounded-tr-xl"></div>
-                    <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-emerald-400 -mb-0.5 -ml-0.5 rounded-bl-xl"></div>
-                    <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-emerald-400 -mb-0.5 -mr-0.5 rounded-br-xl"></div>
+            {/* Main Content: Centered Options */}
+            <div className="flex-1 flex flex-col items-center justify-center gap-12 p-6 z-10 w-full animate-in fade-in zoom-in duration-500">
 
-                    <div className="absolute bottom-4 left-0 right-0 text-center text-white/80 text-sm font-medium">
-                        Place plant in frame
-                    </div>
+                {/* Visual Icon (Optional, or just text) */}
+                <div className="text-center space-y-2 mb-4">
+                    <h2 className="text-2xl font-semibold text-white">Start Analysis</h2>
+                    <p className="text-stone-400">Choose an image source</p>
                 </div>
-            </div>
 
-            {/* Controls */}
-            <div className="bg-black/80 backdrop-blur-lg p-8 pb-32 rounded-t-3xl border-t border-white/10">
-                <div className="flex items-center justify-around max-w-sm mx-auto">
-                    {/* Gallery Button */}
-                    <button
-                        onClick={() => galleryInputRef.current?.click()}
-                        className="p-4 rounded-full bg-white/10 active:bg-white/20 transition-colors"
-                    >
-                        <ImageIcon className="w-6 h-6 text-white" />
-                    </button>
-
-                    {/* Shutter Button */}
+                <div className="flex items-center justify-center gap-8 w-full max-w-sm">
+                    {/* Capture Option */}
                     <button
                         onClick={() => fileInputRef.current?.click()}
-                        className="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center relative group active:scale-95 transition-transform"
+                        className="flex-1 flex flex-col items-center gap-4 group p-6 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 active:scale-95 transition-all"
                     >
-                        <div className="w-16 h-16 bg-white rounded-full group-hover:bg-emerald-50 transition-colors"></div>
+                        <div className="w-20 h-20 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                            <Camera className="w-10 h-10 text-white" />
+                        </div>
+                        <span className="text-lg font-medium text-white">Capture</span>
                     </button>
 
-                    {/* Tips Button (Placeholder) */}
-                    <div className="w-14"></div>
+                    {/* Upload Option */}
+                    <button
+                        onClick={() => galleryInputRef.current?.click()}
+                        className="flex-1 flex flex-col items-center gap-4 group p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all"
+                    >
+                        <div className="w-20 h-20 rounded-full bg-stone-800 flex items-center justify-center border border-white/10">
+                            <ImageIcon className="w-10 h-10 text-white" />
+                        </div>
+                        <span className="text-lg font-medium text-white">Upload</span>
+                    </button>
                 </div>
             </div>
 

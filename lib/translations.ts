@@ -76,6 +76,7 @@ export interface Translation {
         healthyPlantMessage: string;
         preventiveCare: string;
         helpfulVideos: string;
+        overview: string;
     };
     selectLanguage: string;
     recentScans: string;
@@ -157,7 +158,8 @@ export const translations: Record<Language, Translation> = {
             diagnosis: "Diagnosis",
             healthyPlantMessage: "Your plant is looking great! Keep up the good work.",
             preventiveCare: "Preventive Care",
-            helpfulVideos: "Helpful Videos"
+            helpfulVideos: "Helpful Videos",
+            overview: "Overview"
         },
         selectLanguage: "Select Language",
         recentScans: "Recent Scans"
@@ -237,7 +239,8 @@ export const translations: Record<Language, Translation> = {
             diagnosis: "நோயறிதல்",
             healthyPlantMessage: "உங்கள் தாவரம் நன்றாக உள்ளது!",
             preventiveCare: "தடுப்பு பராமரிப்பு",
-            helpfulVideos: "பயனுள்ள வீடியோக்கள்"
+            helpfulVideos: "பயனுள்ள வீடியோக்கள்",
+            overview: "கண்ணோட்டம்"
         },
         selectLanguage: "மொழியைத் தேர்ந்தெடுக்கவும்",
         recentScans: "சமீபத்திய ஸ்கேன்கள்"
@@ -317,7 +320,8 @@ export const translations: Record<Language, Translation> = {
             diagnosis: "निदान",
             healthyPlantMessage: "आपका पौधा बहुत अच्छा दिख रहा है!",
             preventiveCare: "निवारक देखभाल",
-            helpfulVideos: "उपयोगी वीडियो"
+            helpfulVideos: "उपयोगी वीडियो",
+            overview: "परिचय"
         },
         selectLanguage: "भाषा चुनें",
         recentScans: "हाल के स्कैन"
