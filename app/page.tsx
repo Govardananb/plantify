@@ -5,9 +5,12 @@ import { Camera, Wifi, Leaf, ImageUp, Settings } from "lucide-react";
 import LanguageSelector from "@/components/ui/LanguageSelector";
 import RecentScans from "@/components/features/RecentScans";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import { useOnline } from "@/hooks/useOnline";
+import { OfflineGuides } from "@/components/features/OfflineGuides";
 
 export default function Home() {
   const { t } = useLanguage();
+  const isOnline = useOnline();
 
   return (
     <main className="min-h-screen bg-stone-50 pb-32">
@@ -59,7 +62,12 @@ export default function Home() {
         </div>
 
         {/* Recent Scans Widget */}
-        <RecentScans />
+        {/* Toggle between Recent Scans (Online) and Offline Guides */}
+        {!isOnline ? (
+          <OfflineGuides />
+        ) : (
+          <RecentScans />
+        )}
       </div>
     </main>
   );

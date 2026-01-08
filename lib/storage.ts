@@ -10,6 +10,12 @@ export const saveImage = (file: File) => {
     reader.readAsDataURL(file);
 };
 
+export const saveImagePath = (path: string) => {
+    if (typeof window !== "undefined") {
+        sessionStorage.setItem("plantifier-image", path);
+    }
+};
+
 export const getImage = (): string | null => {
     if (typeof window === "undefined") return null;
     return sessionStorage.getItem("plantifier-image");
