@@ -10,7 +10,9 @@ export interface Translation {
         deleteConfirm: string;
         clearConfirm: string;
         delete: string;
+        analyzeConfirm: string;
     };
+
     systemActive: string;
     heroTitle: string;
     heroSubtitle: string;
@@ -92,7 +94,8 @@ export const translations: Record<Language, Translation> = {
             clear: "Clear All",
             deleteConfirm: "Delete this scan?",
             clearConfirm: "Are you sure you want to delete all scan history?",
-            delete: "Delete"
+            delete: "Delete",
+            analyzeConfirm: "Analyze this pending scan now?"
         },
         systemActive: "System Active",
         heroTitle: "Plantifier",
@@ -173,7 +176,8 @@ export const translations: Record<Language, Translation> = {
             clear: "அழி",
             deleteConfirm: "இந்த ஸ்கேனை நீக்கவா?",
             clearConfirm: "அனைத்து வரலாற்றையும் நீக்க விரும்புகிறீர்களா?",
-            delete: "நீக்கு"
+            delete: "நீக்கு",
+            analyzeConfirm: "நிலுவையில் உள்ள இந்த ஸ்கேனை இப்போது ஆய்வு செய்யவா?"
         },
         systemActive: "சிஸ்டம் ஆக்டிவ்",
         heroTitle: "பிளான்டிஃபையர்",
@@ -254,7 +258,8 @@ export const translations: Record<Language, Translation> = {
             clear: "साफ़ करें",
             deleteConfirm: "इस स्कैन को हटाएं?",
             clearConfirm: "क्या आप सभी इतिहास हटाना चाहते हैं?",
-            delete: "हटाएं"
+            delete: "हटाएं",
+            analyzeConfirm: "क्या आप इस लंबित स्कैन का अभी विश्लेषण करना चाहते हैं?"
         },
         systemActive: "सिस्टम सक्रिय",
         heroTitle: "प्लांटिफायर",
