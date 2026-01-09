@@ -1,105 +1,105 @@
-🌱 AI-Based Plant Detection & Health Advisory System
+# 🌱 AI-Based Plant Detection & Health Advisory System
 
-An AI-powered application that identifies plants from images, analyzes their health, and provides climate-aware care recommendations using Google Gemini API.
+An AI-powered application that identifies plants from images, analyzes plant health, and provides climate-aware care recommendations using multimodal AI.
 
-🚀 Overview
+---
 
-What it does
-Upload or capture a plant image → get instant plant identification, health status, climate suitability, and care guidance.
+## 🚀 Overview
 
-Who it’s for
+**What it does**  
+Upload or capture a plant image to instantly receive plant identification, health status, climate suitability, and actionable care guidance.
 
-Farmers
+**Who it’s for**
+- Farmers  
+- Home gardeners  
+- Agriculture students  
+- Non-expert plant owners  
 
-Home gardeners
+**Why it matters**  
+Turns complex agricultural knowledge into simple, usable insights—fast and accessible.
 
-Agriculture students
+---
 
-Non-expert plant owners
-
-Why it matters
-Makes expert-level plant care accessible, fast, and easy—no agricultural knowledge required.
-
-❗ Problem
+## ❗ Problem
 
 Plant owners often lack:
+- Reliable plant identification  
+- Early disease detection  
+- Climate and zone awareness  
 
-Reliable plant identification
+This results in incorrect treatment and poor plant health.
 
-Early disease detection
+---
 
-Climate and zone awareness
-
-This leads to poor treatment decisions and declining plant health.
-
-💡 Solution
+## 💡 Solution
 
 A single platform that:
+1. Scans plant images  
+2. Identifies plant species  
+3. Analyzes health condition  
+4. Maps suitable climate zones  
+5. Recommends treatments and improvements  
+6. Provides learning resources via video content  
 
-Scans plant images
+All outputs are delivered in clear, non-technical language.
 
-Identifies the plant
+---
 
-Analyzes health condition
+## ✨ Key Differentiators
 
-Maps suitable climate zones
+- All-in-one plant intelligence system  
+- Image-based input (no manual data entry)  
+- Designed for non-expert users  
+- Fast, actionable insights  
 
-Suggests treatments & improvements
+---
 
-Recommends learning resources via YouTube
+## 🧠 System Flow
 
-All insights are delivered in simple, non-technical language.
+Image Upload  
+→ AI Processing  
+→ Plant Identification + Health Analysis + Zone Mapping  
+→ Care Recommendations  
+→ Save / Share Results  
 
-✨ Key Differentiators
+---
 
-All-in-one plant intelligence system
+## ⚙️ Core Features
 
-Image-based input (no manual data)
+- 📷 Image capture & upload  
+- 🌿 Plant identification  
+- ❤️ Health status: Healthy / Moderate / Critical  
+- 🌍 Climate & zone suitability  
+- 🛠️ Cure & growth improvement tips  
+- 🎥 Curated learning resources  
 
-Built for non-expert users
+---
 
-Fast, actionable insights
+## 🛠️ Tech Stack
 
-🧠 System Flow
+- Google Gemini (Multimodal AI) – Image understanding & analysis *(MVP simulated)*  
+- AI-driven vision processing  
+- YouTube integration for educational content  
 
-Image Upload → AI Processing →
-Plant ID + Health Analysis + Zone Mapping →
-Care Recommendations → Save / Share Results
+---
 
-⚙️ Core Features
+## 🔮 Future Scope
 
-📷 Image capture & upload
+- Cloud backend & scalable deployment  
+- Authentication and database support  
+- Offline plant data access  
+- Region-specific advisories  
 
-🌿 Plant identification
+---
 
-❤️ Health status: Healthy / Moderate / Critical
+## ⚠️ Disclaimer
 
-🌍 Climate & zone suitability
+- AI outputs are advisory and informational  
+- Not a replacement for professional agricultural consultation  
+- Designed for accessibility, not advanced agronomic research  
 
-🛠️ Cure & growth improvement tips
+---
 
-🎥 Curated learning videos
+## 📄 License
 
-🛠️ Tech Stack
-
-Google Gemini API – image understanding & analysis (MVP simulated)
-
-Google Multimodal AI
-
-YouTube – educational content
-
-🔮 Future Scope
-
-GCP backend & scalable deployment
-
-Firebase authentication & storage
-
-Offline plant data support
-
-Region-specific advisories
-
-⚠️ Notes
-
-AI outputs are advisory, not professional certification
-
-Designed for accessibility, not deep agronomic research
+This project is developed as an academic / prototype MVP.
