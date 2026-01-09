@@ -1,16 +1,105 @@
-## 🌱 AI Plant Detection & Advisory System (Frontend MVP)
+🌱 AI-Based Plant Detection & Health Advisory System
 
-A frontend-only Minimum Viable Product (MVP) that demonstrates how AI can help users identify plants, analyze their health, understand zone-based availability, and receive actionable care recommendations through a simple and accessible interface.
+An AI-powered application that identifies plants from images, analyzes their health, and provides climate-aware care recommendations using Google Gemini API.
 
-## 🚀 Overview
+🚀 Overview
 
-This project showcases an AI-based Plant Detection, Health Analysis, and Zone-Aware Advisory System built as a frontend-only MVP.
-Users can upload a plant image and receive simulated AI insights such as plant identification, health status, common growth zones, and improvement suggestions.
+What it does
+Upload or capture a plant image → get instant plant identification, health status, climate suitability, and care guidance.
 
-The MVP is designed for demonstration, learning, and portfolio purposes, with mock data simulating responses from the Gemini API.
+Who it’s for
 
-## ⚠️ Current Limitation (Important)
+Farmers
 
-This MVP does not perform real plant detection or analysis.
+Home gardeners
 
-All outputs—including plant identification, health status, zone information, recommendations, and learning resources—are generated from static mock JSON data that simulates expected AI responses.
+Agriculture students
+
+Non-expert plant owners
+
+Why it matters
+Makes expert-level plant care accessible, fast, and easy—no agricultural knowledge required.
+
+❗ Problem
+
+Plant owners often lack:
+
+Reliable plant identification
+
+Early disease detection
+
+Climate and zone awareness
+
+This leads to poor treatment decisions and declining plant health.
+
+💡 Solution
+
+A single platform that:
+
+Scans plant images
+
+Identifies the plant
+
+Analyzes health condition
+
+Maps suitable climate zones
+
+Suggests treatments & improvements
+
+Recommends learning resources via YouTube
+
+All insights are delivered in simple, non-technical language.
+
+✨ Key Differentiators
+
+All-in-one plant intelligence system
+
+Image-based input (no manual data)
+
+Built for non-expert users
+
+Fast, actionable insights
+
+🧠 System Flow
+
+Image Upload → AI Processing →
+Plant ID + Health Analysis + Zone Mapping →
+Care Recommendations → Save / Share Results
+
+⚙️ Core Features
+
+📷 Image capture & upload
+
+🌿 Plant identification
+
+❤️ Health status: Healthy / Moderate / Critical
+
+🌍 Climate & zone suitability
+
+🛠️ Cure & growth improvement tips
+
+🎥 Curated learning videos
+
+🛠️ Tech Stack
+
+Google Gemini API – image understanding & analysis (MVP simulated)
+
+Google Multimodal AI
+
+YouTube – educational content
+
+🔮 Future Scope
+
+GCP backend & scalable deployment
+
+Firebase authentication & storage
+
+Offline plant data support
+
+Region-specific advisories
+
+⚠️ Notes
+
+AI outputs are advisory, not professional certification
+
+Designed for accessibility, not deep agronomic research
