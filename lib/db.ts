@@ -1,11 +1,19 @@
 import { PlantAnalysisResult } from "@/types/plant-analysis";
 
 const DB_NAME = "plantifier-db";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE_NAME = "scanHistory";
 
-export interface StoredScan extends PlantAnalysisResult {
+export interface StoredScan {
+    scanId: string;
+    timestamp: string;
     originalImage: string; // Blob URL or Base64
+    status: 'pending' | 'analyzed' | 'failed';
+    isOffline?: boolean;
+    // Result is present if analyzed
+    result?: PlantAnalysisResult;
+    // Legacy support: properties might exist on the root providing backward compat if needed,
+    // but we will primarily use 'result'.
 }
 
 export const openDB = (): Promise<IDBDatabase> => {
@@ -24,7 +32,11 @@ export const openDB = (): Promise<IDBDatabase> => {
         request.onupgradeneeded = () => {
             const db = request.result;
             if (!db.objectStoreNames.contains(STORE_NAME)) {
-                db.createObjectStore(STORE_NAME, { keyPath: "scanId" });
+                const store = db.createObjectStore(STORE_NAME, { keyPath: "scanId" });
+                store.createIndex("timestamp", "timestamp", { unique: false });
+            }
+            if (!db.objectStoreNames.contains("offlineCrops")) {
+                db.createObjectStore("offlineCrops", { keyPath: "id" });
             }
         };
     });

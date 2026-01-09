@@ -2,6 +2,7 @@ export interface PlantAnalysisResult {
     scanId: string;
     timestamp: string;
     isPlant: boolean;
+    isOffline?: boolean;
     confidenceNote: "High" | "Medium" | "Low";
     plant: {
         commonName: string; // "string or Unknown"

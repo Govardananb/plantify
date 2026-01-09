@@ -13,31 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
+import { OfflineDataSync } from "@/components/features/OfflineDataSync";
 import BottomNav from "@/components/layout/BottomNav";
 import OfflineIndicator from "@/components/ui/OfflineIndicator";
 
 // ... existing imports
 
 export const metadata: Metadata = {
-  title: "Plantifier",
-  description: "AI-Based Plant Detection & Health Analysis",
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: "Plantifier",
-  },
-  formatDetection: {
-    telephone: false,
-  },
-};
-
-export const viewport = {
-  themeColor: "#059669",
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  // ...
 };
 
 export default function RootLayout({
@@ -51,6 +34,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <LanguageProvider>
+          <OfflineDataSync />
           <OfflineIndicator />
           <main className="pb-20 min-h-screen bg-neutral-50">
             {children}

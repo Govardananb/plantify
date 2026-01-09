@@ -8,11 +8,32 @@ import { HistoryCard } from "@/components/features/HistoryCard";
 import { Trash2, Sprout, Loader2 } from "lucide-react";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 
+import { useOnline } from "@/hooks/useOnline";
+
 export default function HistoryPage() {
     const router = useRouter();
     const { t } = useLanguage();
+    const isOnline = useOnline();
     const [scans, setScans] = useState<StoredScan[]>([]);
     const [loading, setLoading] = useState(true);
+    const [activeFilter, setFilter] = useState("All");
+
+    // ... (filters)
+    const filteredScans = scans.filter(scan => {
+        if (activeFilter === "All") return true;
+
+        if (activeFilter === "Pending") return scan.status === "pending";
+
+        if (activeFilter === "Offline") return scan.isOffline || scan.result?.isOffline;
+
+        if (scan.result?.healthAnalysis?.status === activeFilter) return true;
+
+        // Legacy support check
+        // @ts-ignore
+        if (scan.healthAnalysis?.status === activeFilter) return true;
+
+        return false;
+    });
 
     useEffect(() => {
         loadHistory();
@@ -29,15 +50,54 @@ export default function HistoryPage() {
         }
     };
 
-    const handleOpenScan = (scan: StoredScan) => {
-        // Determine image source (originalImage might be absent in older mocks)
+    const handleOpenScan = async (scan: StoredScan) => {
+        if (scan.status === "pending") {
+            const performAnalysis = confirm(t.history?.analyzeConfirm || "Analyze this pending scan now?");
+            if (performAnalysis) {
+                setLoading(true);
+                try {
+                    const { processPendingScan } = await import("@/lib/pending-manager");
+                    // Use the hook value
+                    const res = await processPendingScan(scan.scanId, isOnline, "en");
+
+                    if (res.success) {
+                        // After successful processing, we need to load the result into session
+                        // and navigate.
+                        if (res.result) {
+                            saveResult(res.result);
+                            if (typeof window !== "undefined") {
+                                // originalImage must be present if processing succeeded
+                                sessionStorage.setItem("plantifier-image", scan.originalImage);
+                            }
+                        }
+                        router.push("/result");
+                    } else {
+                        alert("Analysis failed: " + res.error);
+                    }
+                } catch (e) {
+                    console.error(e);
+                    alert("Error starting analysis.");
+                } finally {
+                    setLoading(false);
+                    // No need to loadHistory if pushing to result, but if staying or erroring:
+                    loadHistory();
+                }
+            }
+            return;
+        }
+
+        // Determine image source 
         const img = scan.originalImage || "";
 
         // Save to session storage so Result page picks it up
-        saveResult(scan);
-        // saveImage expects a File object usually, but for viewing history we might need to adjust logic.
-        // However, existing Result page uses `getImage()` which gets from session 'plantifier-image'.
-        // We should manually set that session item.
+        if (scan.result) {
+            saveResult(scan.result);
+        } else {
+            // Legacy fallback - if scan *is* the result
+            // @ts-ignore
+            saveResult(scan);
+        }
+
         if (typeof window !== "undefined") {
             sessionStorage.setItem("plantifier-image", img);
         }
@@ -78,23 +138,39 @@ export default function HistoryPage() {
                 )}
             </div>
 
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-4">
+                {/* Filters */}
+                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                    {["All", "Pending", "Healthy", "Critical", "Offline"].map((filter) => (
+                        <button
+                            key={filter}
+                            onClick={() => setFilter(filter)}
+                            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${activeFilter === filter
+                                ? "bg-emerald-600 text-white shadow-md shadow-emerald-200"
+                                : "bg-white text-stone-600 border border-stone-200 hover:bg-stone-50"
+                                }`}
+                        >
+                            {filter}
+                        </button>
+                    ))}
+                </div>
+
                 {loading ? (
                     <div className="flex justify-center pt-20">
                         <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
                     </div>
-                ) : scans.length === 0 ? (
+                ) : filteredScans.length === 0 ? (
                     <div className="flex flex-col items-center justify-center pt-20 text-center opacity-60">
                         <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mb-4">
                             <Sprout className="w-8 h-8 text-stone-400" />
                         </div>
                         <h3 className="font-semibold text-stone-800">{t.history.empty}</h3>
                         <p className="text-sm text-stone-500 max-w-[200px]">
-                            {t.history.emptyDesc}
+                            {activeFilter === "All" ? t.history.emptyDesc : "No scans match this filter"}
                         </p>
                     </div>
                 ) : (
-                    scans.map((scan) => (
+                    filteredScans.map((scan) => (
                         <HistoryCard
                             key={scan.scanId}
                             scan={scan}

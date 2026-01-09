@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ArrowLeft, FileDown, AlertTriangle, CheckCircle2, ChevronRight, Droplet, Sprout, Sun, Scissors, ShieldCheck } from "lucide-react";
+import { ArrowLeft, FileDown, AlertTriangle, CheckCircle2, ChevronRight, Droplet, Sprout, Sun, Scissors, ShieldCheck, WifiOff, Share2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PlantAnalysisResult } from "@/types/plant-analysis";
@@ -23,7 +23,22 @@ export default function ResultPage() {
         const stored = getStoredResult() as PlantAnalysisResult;
         if (stored) {
             setData(stored);
-            saveScan({ ...stored, originalImage: getImage() || "" }).catch(console.error);
+            setData(stored);
+            // Construct StoredScan object for saving. 
+            // Since stored is PlantAnalysisResult (legacy or mock), we wrap it or use it if it looks like StoredScan (checked via props)
+            // But here we rely on the fact that existing code passes PlantAnalysisResult.
+            // We need to conform to new StoredScan interface.
+            const scanToSave: any = {
+                scanId: stored.scanId,
+                timestamp: stored.timestamp,
+                originalImage: getImage() || "",
+                status: 'analyzed',
+                result: stored,
+                // Legacy props if needed, but we are moving to 'result' based.
+                // However, since we spread stored before, we can keep spreading it for backward compat if we want
+                // ...stored 
+            };
+            saveScan(scanToSave).catch(console.error);
         } else {
             // Redirect if no data (e.g., refresh without persistence)
             // For dev/testing, we might want to stay or redirect. 
@@ -45,14 +60,37 @@ export default function ResultPage() {
         <main className="min-h-screen bg-neutral-50 pb-32">
 
             {/* 1. Navbar (Sticky) */}
+            {/* 1. Navbar (Sticky) */}
             <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-4 py-3 flex items-center justify-between">
                 <button onClick={() => router.back()} className="p-2 rounded-full hover:bg-black/5 active:bg-black/10">
                     <ArrowLeft className="w-5 h-5 text-gray-700" />
                 </button>
-                <span className="font-semibold text-gray-900">{t.result.analysisReport}</span>
-                <button onClick={handleSharePDF} className="p-2 rounded-full hover:bg-black/5 active:bg-black/10">
-                    <FileDown className="w-5 h-5 text-gray-700" />
-                </button>
+                <div className="flex flex-col items-center">
+                    <span className="font-semibold text-gray-900">{t.result.analysisReport}</span>
+                    {data.isOffline && (
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+                            <WifiOff className="w-3 h-3" /> Offline Mode
+                        </span>
+                    )}
+                </div>
+                <div className="flex gap-2">
+                    <button onClick={handleSharePDF} className="p-2 rounded-full hover:bg-black/5 active:bg-black/10" aria-label="Download PDF">
+                        <FileDown className="w-5 h-5 text-gray-700" />
+                    </button>
+                    <button onClick={() => {
+                        if (navigator.share) {
+                            navigator.share({
+                                title: `Plantify: ${data.plant.commonName}`,
+                                text: `Check out this plant analysis for ${data.plant.commonName}! Status: ${data.healthAnalysis.status}`,
+                                url: window.location.href
+                            }).catch(console.error);
+                        } else {
+                            alert("Sharing is not supported on this device/browser.");
+                        }
+                    }} className="p-2 rounded-full hover:bg-black/5 active:bg-black/10" aria-label="Share">
+                        <Share2 className="w-5 h-5 text-gray-700" />
+                    </button>
+                </div>
             </div>
 
             <div className="p-4 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
