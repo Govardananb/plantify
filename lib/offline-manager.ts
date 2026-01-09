@@ -21,7 +21,7 @@ export async function cacheOfflineData() {
         console.log("Starting offline data cache...");
 
         // 2. Fetch all data first (outside transaction)
-        const itemsToCache = [];
+        const itemsToCache: { id: string; data: OfflineCrop; imageBlob: Blob }[] = [];
         for (const crop of OFFLINE_CROPS) {
             try {
                 const response = await fetch(crop.imageUrl);

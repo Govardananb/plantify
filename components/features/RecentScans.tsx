@@ -21,7 +21,18 @@ export default function RecentScans() {
     }, []);
 
     const handleOpenScan = (scan: StoredScan) => {
-        saveResult(scan);
+        if (scan.status === "pending") {
+            router.push("/history");
+            return;
+        }
+
+        if (scan.result) {
+            saveResult(scan.result);
+        } else {
+            // @ts-ignore
+            saveResult(scan);
+        }
+
         if (typeof window !== "undefined") {
             sessionStorage.setItem("plantifier-image", scan.originalImage || "");
         }

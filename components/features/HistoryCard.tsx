@@ -24,7 +24,9 @@ export const HistoryCard: React.FC<HistoryCardProps> = ({ scan, onClick, onDelet
     // Check if we have legacy data structure (scan has plant directly)
     // @ts-ignore
     const legacyPlant = scan.plant;
+    // @ts-ignore
     const displayName = legacyPlant ? legacyPlant.commonName : commonName;
+    // @ts-ignore
     const displayHealth = legacyPlant ? scan.healthAnalysis.status : healthStatus;
     const displayIsHealthy = displayHealth === "Healthy";
 
