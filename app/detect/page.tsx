@@ -19,7 +19,15 @@ export default function DetectPage() {
 
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [preview, setPreview] = useState<string | null>(null);
+    const [isSecure, setIsSecure] = useState(true);
     const { language, t } = useLanguage();
+
+    React.useEffect(() => {
+        // Check if environment supports camera (HTTPS or localhost)
+        if (typeof window !== "undefined") {
+            setIsSecure(window.isSecureContext);
+        }
+    }, []);
 
     type StepStatus = "pending" | "loading" | "completed";
 
@@ -185,16 +193,35 @@ export default function DetectPage() {
                     <p className="text-stone-400">
                         {isOnline ? "Choose an image source" : "Will be saved for later analysis"}
                     </p>
+
+                    {!isSecure && (
+                        <div className="mx-auto max-w-[280px] bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 mt-4">
+                            <p className="text-xs text-amber-200 text-center flex items-center justify-center gap-2">
+                                <WifiOff className="w-4 h-4" /> {/* Reusing WifiOff conceptually as Warning icon available */}
+                                Camera requires HTTPS/Localhost
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 <div className="flex flex-col gap-4 w-full max-w-sm">
                     <div className="flex items-center justify-center gap-8 w-full">
                         {/* Capture Option */}
                         <button
-                            onClick={() => fileInputRef.current?.click()}
-                            className="flex-1 flex flex-col items-center gap-4 group p-6 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 active:scale-95 transition-all"
+                            onClick={() => {
+                                if (!isSecure) {
+                                    alert("Camera access requires a secure HTTPS connection.");
+                                    return;
+                                }
+                                fileInputRef.current?.click()
+                            }}
+                            className={`flex-1 flex flex-col items-center gap-4 group p-6 rounded-3xl border transition-all ${!isSecure
+                                    ? 'bg-stone-800/50 border-stone-700 cursor-not-allowed opacity-50'
+                                    : 'bg-emerald-500/10 border-emerald-500/20 hover:bg-emerald-500/20 active:scale-95'
+                                }`}
                         >
-                            <div className="w-20 h-20 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                            <div className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg ${!isSecure ? 'bg-stone-700 shadow-none' : 'bg-emerald-500 shadow-emerald-500/30'
+                                }`}>
                                 <Camera className="w-10 h-10 text-white" />
                             </div>
                             <span className="text-lg font-medium text-white">Capture</span>
